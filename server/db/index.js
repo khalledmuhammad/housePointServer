@@ -2,11 +2,11 @@ const mysql = require("mysql");
 
 const pool = mysql.createPool({
   connectionLimit: 10,
-  host: "localhost",
+  host: "mysql-100424-0.cloudclusters.net",
   database: "techlife",
-  // port: 8889,
-  user: "root",
-  password: "",
+   port: 10121,
+  user: "admin",
+  password: "housePoint911",
 });
 
 let housePoint = {};
