@@ -34,6 +34,51 @@ router.get("/prop/:id" ,async (req,res)=>{
 
 })
 
+router.get("/for-sale" ,async (req,res)=>{
+    try {
+        let results = await db.selectForSale()
+        res.json(results)
+    } catch (error) {
+        console.log(error)
+    }
+
+})
+router.get("/for-rent" ,async (req,res)=>{
+    try {
+        let results = await db.selectForRent()
+        res.json(results)
+    } catch (error) {
+        console.log(error)
+    }
+
+})
+router.get("/in-maadi" ,async (req,res)=>{
+    try {
+        let results = await db.selectInMaadi()
+        res.json(results)
+    } catch (error) {
+        console.log(error)
+    }
+
+})
+router.get("/in-maadi-sarayat" ,async (req,res)=>{
+    try {
+        let results = await db.selectInMaadiSarayat()
+        res.json(results)
+    } catch (error) {
+        console.log(error)
+    }
+
+})
+router.get("/in-maadi-degla" ,async (req,res)=>{
+    try {
+        let results = await db.selectInMaadiDegla()
+        res.json(results)
+    } catch (error) {
+        console.log(error)
+    }
+
+})
 
 
 module.exports = router
