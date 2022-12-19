@@ -4,7 +4,7 @@ const pool = mysql.createPool({
   connectionLimit: 10,
   host: "mysql-100424-0.cloudclusters.net",
   database: "techlife",
-   port: 10121,
+  port: 10121,
   user: "admin",
   password: "housePoint911",
 });
@@ -14,8 +14,9 @@ let housePoint = {};
 housePoint.all = () => {
   return new Promise((resolve, reject) => {
     pool.query(
-      ` select * from property
-       inner join maincat on maincat.mid=property.Area
+      `
+         select * from property
+         inner join maincat on maincat.mid=property.Area
           inner join subcat on subcat.sid=property.Subarea  
           inner join property_type on property_type.type_id=property.Property_type  
           inner join furniture on furniture.ffid=property.Furniture_status 
@@ -66,13 +67,14 @@ housePoint.selectForSale = () => {
   return new Promise((resolve, reject) => {
     pool.query(
       `
-      select * from property
+         select * from property
 inner join maincat on maincat.mid=property.Area 
 inner join subcat on subcat.sid=property.Subarea  
 inner join image on image.cat = property.Id_property 
  where property.Property_for='Sale'  
  group by image.cat
- order by inhome desc, xdat desc LIMIT 5`,
+ order by inhome desc, xdat desc LIMIT 5    
+ `,
       (err, results) => {
         if (err) {
           return reject(err);
@@ -93,7 +95,7 @@ inner join subcat on subcat.sid=property.Subarea
 inner join image on image.cat = property.Id_property 
  where property.Property_for='Rent'  
  group by image.cat
- order by inhome desc, xdat desc LIMIT 5`,
+ order by inhome desc, xdat desc LIMIT 5`,   
       (err, results) => {
         if (err) {
           return reject(err);
@@ -114,7 +116,7 @@ inner join subcat on subcat.sid=property.Subarea
 inner join image on image.cat = property.Id_property 
  where property.Area=1
  group by image.cat
- order by inhome desc, xdat desc LIMIT 5`,
+ order by inhome desc, xdat desc`,
       (err, results) => {
         if (err) {
           return reject(err);
@@ -133,9 +135,9 @@ housePoint.selectInMaadiSarayat = () => {
 inner join maincat on maincat.mid=property.Area 
 inner join subcat on subcat.sid=property.Subarea  
 inner join image on image.cat = property.Id_property 
- where property.name2='Maadi Sarayat'  
+ where property.Subarea=2 
  group by image.cat
- order by inhome desc, xdat desc LIMIT 5`,
+ order by inhome desc, xdat desc `,
       (err, results) => {
         if (err) {
           return reject(err);
@@ -154,9 +156,9 @@ housePoint.selectInMaadiDegla = () => {
 inner join maincat on maincat.mid=property.Area 
 inner join subcat on subcat.sid=property.Subarea  
 inner join image on image.cat = property.Id_property 
- where property.name2='Maadi sarayaat'  
+ where property.Subarea=5  
  group by image.cat
- order by inhome desc, xdat desc LIMIT 5`,
+ order by inhome desc, xdat desc `,
       (err, results) => {
         if (err) {
           return reject(err);
