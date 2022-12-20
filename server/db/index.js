@@ -21,7 +21,7 @@ housePoint.all = () => {
           inner join property_type on property_type.type_id=property.Property_type  
           inner join furniture on furniture.ffid=property.Furniture_status 
           inner join image on image.cat = property.Id_property group by image.cat
-          order by inhome desc, xdat desc 
+          order by inhome desc, xdat desc limit 2000
  `,
       (err, results) => {
         if (err) {
