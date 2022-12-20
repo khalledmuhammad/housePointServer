@@ -12,6 +12,16 @@ router.get("/" ,async (req,res)=>{
         }
 
 })
+
+router.get("/home" ,async (req,res)=>{
+    try {
+        let results = await db.allHome()
+        res.json(results)
+    } catch (error) {
+        console.log(error)
+    }
+
+})
 router.get("/image/:id" ,async (req,res)=>{
     try {
         let results = await db.image(req.params.id)

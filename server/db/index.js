@@ -33,6 +33,28 @@ housePoint.all = () => {
   });
 };
 
+housePoint.allHome = () => {
+  return new Promise((resolve, reject) => {
+    pool.query(
+      `
+         select * from property
+         inner join maincat on maincat.mid=property.Area
+          inner join subcat on subcat.sid=property.Subarea  
+          inner join property_type on property_type.type_id=property.Property_type  
+          inner join furniture on furniture.ffid=property.Furniture_status 
+          inner join image on image.cat = property.Id_property group by image.cat
+          order by inhome desc, xdat desc limit 15
+ `,
+      (err, results) => {
+        if (err) {
+          return reject(err);
+        }
+        return resolve(results);
+      }
+    );
+  });
+};
+
 housePoint.singleProperty = (id) => {
   return new Promise((resolve, reject) => {
     pool.query(
