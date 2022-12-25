@@ -1,13 +1,23 @@
 const mysql = require("mysql");
 
-const pool = mysql.createPool({
-  connectionLimit: 10,
+/* const pool = mysql.createPool({
   host: "mysql-100424-0.cloudclusters.net",
   database: "techlife",
   port: 10121,
   user: "admin",
   password: "housePoint911",
+  charset : 'utf8'
+}); */
+
+const pool = mysql.createPool({
+  host: "mysql-101810-0.cloudclusters.net",
+  database: "techlife",
+  port: 18063,
+  user: "admin",
+  password : "egFTmzTF",
+  charset : 'utf8'
 });
+
 
 let housePoint = {};
 
@@ -21,13 +31,15 @@ housePoint.all = () => {
           inner join property_type on property_type.type_id=property.Property_type  
           inner join furniture on furniture.ffid=property.Furniture_status 
           inner join image on image.cat = property.Id_property group by image.cat
-          order by inhome desc, xdat desc limit 2500
+          order by inhome desc, xdat desc 
  `,
       (err, results) => {
         if (err) {
           return reject(err);
         }
-        return resolve(results);
+        else{
+
+          return resolve(results);}
       }
     );
   });
