@@ -148,6 +148,8 @@ housePoint.selectInMaadi = () => {
 inner join maincat on maincat.mid=property.Area 
 inner join subcat on subcat.sid=property.Subarea  
 inner join image on image.cat = property.Id_property 
+inner join property_type on property_type.type_id=property.Property_type  
+inner join furniture on furniture.ffid=property.Furniture_status 
  where property.Area=1
  group by image.cat
  order by inhome desc, xdat desc`,
@@ -169,6 +171,8 @@ housePoint.selectInMaadiSarayat = () => {
 inner join maincat on maincat.mid=property.Area 
 inner join subcat on subcat.sid=property.Subarea  
 inner join image on image.cat = property.Id_property 
+inner join property_type on property_type.type_id=property.Property_type  
+inner join furniture on furniture.ffid=property.Furniture_status 
  where property.Subarea=2 
  group by image.cat
  order by inhome desc, xdat desc `,
@@ -190,6 +194,8 @@ housePoint.selectInMaadiDegla = () => {
 inner join maincat on maincat.mid=property.Area 
 inner join subcat on subcat.sid=property.Subarea  
 inner join image on image.cat = property.Id_property 
+inner join property_type on property_type.type_id=property.Property_type  
+inner join furniture on furniture.ffid=property.Furniture_status 
  where property.Subarea=5  
  group by image.cat
  order by inhome desc, xdat desc `,
