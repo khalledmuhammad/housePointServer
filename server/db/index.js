@@ -70,7 +70,12 @@ housePoint.allHome = () => {
 housePoint.singleProperty = (id) => {
   return new Promise((resolve, reject) => {
     pool.query(
-      ` select * from property where Id_property=? `,
+      ` select * from property 
+             inner join maincat on maincat.mid=property.Area
+          inner join subcat on subcat.sid=property.Subarea  
+          inner join property_type on property_type.type_id=property.Property_type  
+          inner join furniture on furniture.ffid=property.Furniture_status 
+      where Id_property=? `,
       [id],
       (err, results) => {
         if (err) {
