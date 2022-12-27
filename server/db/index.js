@@ -114,7 +114,7 @@ inner join property_type on property_type.type_id=property.Property_type
 inner join furniture on furniture.ffid=property.Furniture_status 
  where property.Property_for='Sale'  
  group by image.cat
- 
+ order by inhome desc, xdat desc
  `,
       (err, results) => {
         if (err) {
@@ -138,6 +138,7 @@ inner join property_type on property_type.type_id=property.Property_type
 inner join furniture on furniture.ffid=property.Furniture_status 
  where property.Property_for='Rent'  
  group by image.cat
+ order by inhome desc, xdat desc
  `,   
       (err, results) => {
         if (err) {
