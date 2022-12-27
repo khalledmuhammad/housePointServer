@@ -110,9 +110,11 @@ housePoint.selectForSale = () => {
 inner join maincat on maincat.mid=property.Area 
 inner join subcat on subcat.sid=property.Subarea  
 inner join image on image.cat = property.Id_property 
+inner join property_type on property_type.type_id=property.Property_type  
+inner join furniture on furniture.ffid=property.Furniture_status 
  where property.Property_for='Sale'  
  group by image.cat
- order by inhome desc, xdat desc LIMIT 5    
+ 
  `,
       (err, results) => {
         if (err) {
@@ -132,9 +134,11 @@ housePoint.selectForRent = () => {
 inner join maincat on maincat.mid=property.Area 
 inner join subcat on subcat.sid=property.Subarea  
 inner join image on image.cat = property.Id_property 
+inner join property_type on property_type.type_id=property.Property_type  
+inner join furniture on furniture.ffid=property.Furniture_status 
  where property.Property_for='Rent'  
  group by image.cat
- order by inhome desc, xdat desc LIMIT 5`,   
+ `,   
       (err, results) => {
         if (err) {
           return reject(err);
