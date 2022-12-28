@@ -219,4 +219,65 @@ inner join furniture on furniture.ffid=property.Furniture_status
   });
 };
 
+housePoint.selectInKatamya = () => {
+  return new Promise((resolve, reject) => {
+    pool.query(
+      `
+      select * from property
+inner join maincat on maincat.mid=property.Area 
+inner join subcat on subcat.sid=property.Subarea  
+inner join image on image.cat = property.Id_property 
+inner join property_type on property_type.type_id=property.Property_type  
+inner join furniture on furniture.ffid=property.Furniture_status 
+where property.Area=17
+group by image.cat
+ order by inhome desc, xdat desc `,
+      (err, results) => {
+        if (err) {
+          return reject(err);
+        }
+        return resolve(results);
+      }
+    );
+  });
+};
+
+housePoint.selectInNewCairo = () => {
+  return new Promise((resolve, reject) => {
+    pool.query(
+      `
+      select * from property
+inner join maincat on maincat.mid=property.Area 
+inner join subcat on subcat.sid=property.Subarea  
+inner join image on image.cat = property.Id_property 
+inner join property_type on property_type.type_id=property.Property_type  
+inner join furniture on furniture.ffid=property.Furniture_status 
+where property.Area=4
+group by image.cat
+ order by inhome desc, xdat desc `,
+      (err, results) => {
+        if (err) {
+          return reject(err);
+        }
+        return resolve(results);
+      }
+    );
+  });
+};
+
+housePoint.getBlogsList = () => {
+  return new Promise((resolve, reject) => {
+    pool.query(
+      `
+      select * from blog `,
+      (err, results) => {
+        if (err) {
+          return reject(err);
+        }
+        return resolve(results);
+      }
+    );
+  });
+};
+
 module.exports = housePoint;

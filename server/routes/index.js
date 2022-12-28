@@ -90,5 +90,36 @@ router.get("/in-maadi-degla" ,async (req,res)=>{
 
 })
 
+router.get("/in-katamya" ,async (req,res)=>{
+    try {
+        let results = await db.selectInKatamya()
+        res.json(results)
+    } catch (error) {
+        console.log(error)
+    }
+
+})
+
+router.get("/in-new-cairo" ,async (req,res)=>{
+    try {
+        let results = await db.selectInNewCairo()
+        res.json(results)
+    } catch (error) {
+        console.log(error)
+    }
+
+})
+
+router.get("/blogs" ,async (req,res)=>{
+    try {
+        let results = await db.getBlogsList()
+        res.json(results)
+    } catch (error) {
+        console.log(error)
+    }
+
+})
+
+
 
 module.exports = router
