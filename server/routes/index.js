@@ -120,6 +120,16 @@ router.get("/blogs" ,async (req,res)=>{
 
 })
 
+router.get("/blogs/:id" ,async (req,res)=>{
+    try {
+        let results = await db.singleBlog(req.params.id)
+        res.json(results)
+    } catch (error) {
+        console.log(error)
+    }
+
+})
+
 
 
 module.exports = router

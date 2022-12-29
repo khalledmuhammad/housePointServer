@@ -280,4 +280,20 @@ housePoint.getBlogsList = () => {
   });
 };
 
+housePoint.singleBlog = (id) => {
+  return new Promise((resolve, reject) => {
+    pool.query(
+      ` select * from blog 
+      where slidid=? `,
+      [id],
+      (err, results) => {
+        if (err) {
+          return reject(err);
+        }
+        return resolve(results[0]);
+      }
+    );
+  });
+};
+
 module.exports = housePoint;
