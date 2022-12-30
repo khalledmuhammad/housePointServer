@@ -67,7 +67,7 @@ housePoint.allHome = () => {
   });
 };
 
-housePoint.singleProperty = (id) => {
+housePoint.singleProperty = (slug) => {
   return new Promise((resolve, reject) => {
     pool.query(
       ` select * from property 
@@ -75,8 +75,8 @@ housePoint.singleProperty = (id) => {
           inner join subcat on subcat.sid=property.Subarea  
           inner join property_type on property_type.type_id=property.Property_type  
           inner join furniture on furniture.ffid=property.Furniture_status 
-      where Id_property=? `,
-      [id],
+          where slug_en or slug_ar =? `,
+          [slug],
       (err, results) => {
         if (err) {
           return reject(err);
@@ -280,12 +280,12 @@ housePoint.getBlogsList = () => {
   });
 };
 
-housePoint.singleBlog = (id) => {
+housePoint.singleBlog = (slug) => {
   return new Promise((resolve, reject) => {
     pool.query(
       ` select * from blog 
-      where slidid=? `,
-      [id],
+      where slug_ar or slug_en=? `,
+      [slug],
       (err, results) => {
         if (err) {
           return reject(err);
@@ -295,5 +295,8 @@ housePoint.singleBlog = (id) => {
     );
   });
 };
+
+
+
 
 module.exports = housePoint;

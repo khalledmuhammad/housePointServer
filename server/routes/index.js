@@ -34,9 +34,9 @@ router.get("/image/:id" ,async (req,res)=>{
 
 
 
-router.get("/prop/:id" ,async (req,res)=>{
+router.get("/prop/:slug" ,async (req,res)=>{
     try {
-        let results = await db.singleProperty(req.params.id)
+        let results = await db.singleProperty(req.params.slug)
         res.json(results)
     } catch (error) {
         console.log(error)
@@ -120,15 +120,17 @@ router.get("/blogs" ,async (req,res)=>{
 
 })
 
-router.get("/blogs/:id" ,async (req,res)=>{
+router.get("/blogsen/:slug" ,async (req,res)=>{
     try {
-        let results = await db.singleBlog(req.params.id)
+        let results = await db.singleBlog(req.params.slug)
         res.json(results)
     } catch (error) {
         console.log(error)
     }
 
 })
+
+
 
 
 
