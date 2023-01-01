@@ -1,25 +1,8 @@
-const mysql = require("mysql");
-
-/* const pool = mysql.createPool({
-  host: "mysql-100424-0.cloudclusters.net",
-  database: "techlife",
-  port: 10121,
-  user: "admin",
-  password: "housePoint911",
-  charset : 'utf8'
-}); */
-
-const pool = mysql.createPool({
-  host: "mysql-101810-0.cloudclusters.net",
-  database: "techlife",
-  port: 18063,
-  user: "admin",
-  password : "egFTmzTF",
-  charset : 'utf8'
-});
-
+const pool = require("../db/dbConn");
 
 let housePoint = {};
+
+/* get all home and single home */
 
 housePoint.all = () => {
   return new Promise((resolve, reject) => {
@@ -36,10 +19,9 @@ housePoint.all = () => {
       (err, results) => {
         if (err) {
           return reject(err);
+        } else {
+          return resolve(results);
         }
-        else{
-
-          return resolve(results);}
       }
     );
   });
@@ -70,13 +52,12 @@ housePoint.allHome = () => {
 housePoint.singleProperty = (slug) => {
   return new Promise((resolve, reject) => {
     pool.query(
-      ` select * from property 
-             inner join maincat on maincat.mid=property.Area
-          inner join subcat on subcat.sid=property.Subarea  
-          inner join property_type on property_type.type_id=property.Property_type  
-          inner join furniture on furniture.ffid=property.Furniture_status 
-          where slug_en or slug_ar =? `,
-          [slug],
+        `   select * from property 
+            inner join maincat on maincat.mid=property.Area
+            inner join subcat on subcat.sid=property.Subarea  
+            inner join property_type on property_type.type_id=property.Property_type  
+            inner join furniture on furniture.ffid=property.Furniture_status 
+           where ? IN(slug_ar , slug_en) `,[slug],
       (err, results) => {
         if (err) {
           return reject(err);
@@ -102,6 +83,8 @@ housePoint.image = (id) => {
   });
 };
 
+/* all for sale in main places */
+
 housePoint.selectForSale = () => {
   return new Promise((resolve, reject) => {
     pool.query(
@@ -126,6 +109,8 @@ inner join furniture on furniture.ffid=property.Furniture_status
   });
 };
 
+/* all for rent in main places */
+
 housePoint.selectForRent = () => {
   return new Promise((resolve, reject) => {
     pool.query(
@@ -139,7 +124,7 @@ inner join furniture on furniture.ffid=property.Furniture_status
  where property.Property_for='Rent'  
  group by image.cat
  order by inhome desc, xdat desc
- `,   
+ `,
       (err, results) => {
         if (err) {
           return reject(err);
@@ -150,6 +135,83 @@ inner join furniture on furniture.ffid=property.Furniture_status
   });
 };
 
+/* for rent property type */
+
+/*  for rent places */
+
+housePoint.selectForRentMaadi = () => {
+  return new Promise((resolve, reject) => {
+    pool.query(
+      `
+      select * from property
+inner join maincat on maincat.mid=property.Area 
+inner join subcat on subcat.sid=property.Subarea  
+inner join image on image.cat = property.Id_property 
+inner join property_type on property_type.type_id=property.Property_type  
+inner join furniture on furniture.ffid=property.Furniture_status 
+ where property.Property_for='Rent' and  property.Area=1
+ group by image.cat
+ order by inhome desc, xdat desc
+ `,
+      (err, results) => {
+        if (err) {
+          return reject(err);
+        }
+        return resolve(results);
+      }
+    );
+  });
+};
+
+housePoint.selectForRentNewCairo = () => {
+  return new Promise((resolve, reject) => {
+    pool.query(
+      `
+      select * from property
+inner join maincat on maincat.mid=property.Area 
+inner join subcat on subcat.sid=property.Subarea  
+inner join image on image.cat = property.Id_property 
+inner join property_type on property_type.type_id=property.Property_type  
+inner join furniture on furniture.ffid=property.Furniture_status 
+ where property.Property_for='Rent' and  property.Area=4
+ group by image.cat
+ order by inhome desc, xdat desc
+ `,
+      (err, results) => {
+        if (err) {
+          return reject(err);
+        }
+        return resolve(results);
+      }
+    );
+  });
+};
+
+housePoint.selectForRentKatamya = () => {
+  return new Promise((resolve, reject) => {
+    pool.query(
+      `
+      select * from property
+inner join maincat on maincat.mid=property.Area 
+inner join subcat on subcat.sid=property.Subarea  
+inner join image on image.cat = property.Id_property 
+inner join property_type on property_type.type_id=property.Property_type  
+inner join furniture on furniture.ffid=property.Furniture_status 
+ where property.Property_for='Rent' and  property.Area=17
+ group by image.cat
+ order by inhome desc, xdat desc
+ `,
+      (err, results) => {
+        if (err) {
+          return reject(err);
+        }
+        return resolve(results);
+      }
+    );
+  });
+};
+
+/* select in these places */
 housePoint.selectInMaadi = () => {
   return new Promise((resolve, reject) => {
     pool.query(
@@ -265,6 +327,7 @@ group by image.cat
   });
 };
 
+/*  get blogs and single blog */
 housePoint.getBlogsList = () => {
   return new Promise((resolve, reject) => {
     pool.query(
@@ -284,7 +347,7 @@ housePoint.singleBlog = (slug) => {
   return new Promise((resolve, reject) => {
     pool.query(
       ` select * from blog 
-      where slug_ar or slug_en=? `,
+      where ? IN(slug_ar , slug_en) `,
       [slug],
       (err, results) => {
         if (err) {
@@ -295,8 +358,5 @@ housePoint.singleBlog = (slug) => {
     );
   });
 };
-
-
-
 
 module.exports = housePoint;
