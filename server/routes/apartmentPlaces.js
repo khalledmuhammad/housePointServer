@@ -227,5 +227,228 @@ router.get("/rent/Maadi/:type", async (req, res) => {
     }
   });
 
+  /* for sale properties Areas */
+  router.get("/Sale/Maadi/:type", async (req, res) => {
+    try {
+      let results = await db.salePropertyMaadi(req.params.type);
+      res.json(results);
+    } catch (error) {
+      console.log(error);
+    }
+  });
+
+  router.get("/Sale/new-cairo/:type", async (req, res) => {
+    try {
+      let results = await db.salePropertyMaadi(req.params.type);
+      res.json(results);
+    } catch (error) {
+      console.log(error);
+    }
+  });
+  
+
+  router.get("/Sale/katamya/:type", async (req, res) => {
+    try {
+      let results = await db.salePropertyMaadi(req.params.type);
+      res.json(results);
+    } catch (error) {
+      console.log(error);
+    }
+  });
+  
+/* Sale property in subarea maadi */
+
+
+router.get("/Sale/zahraa-maadi/:type", async (req, res) => {
+  try {
+    let results = await db.SalePropertyZahraaMaadi(req.params.type);
+    res.json(results);
+  } catch (error) {
+    console.log(error);
+  }
+});
+router.get("/Sale/maadi-sarayat/:type", async (req, res) => {
+  try {
+    let results = await db.SalePropertyMaadiSarayat(req.params.type);
+    res.json(results);
+  } catch (error) {
+    console.log(error);
+  }
+});
+router.get("/Sale/cornish-maadi/:type", async (req, res) => {
+  try {
+    let results = await db.SalePropertyCornishMaadi(req.params.type);
+    res.json(results);
+  } catch (error) {
+    console.log(error);
+  }
+});
+router.get("/Sale/new-maadi/:type", async (req, res) => {
+  try {
+    let results = await db.SalePropertyNewMaadi(req.params.type);
+    res.json(results);
+  } catch (error) {
+    console.log(error);
+  }
+});
+router.get("/Sale/maadi-degla/:type", async (req, res) => {
+  try {
+    let results = await db.SalePropertyMaadiDegla(req.params.type);
+    res.json(results);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+router.get("/Sale/old-maadi/:type", async (req, res) => {
+  try {
+    let results = await db.SalePropertyOldMaadi(req.params.type);
+    res.json(results);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+/* subareas in new cairo */
+
+router.get("/Sale/chouifat/:type", async (req, res) => {
+  try {
+    let results = await db.SalePropertyChouifat(req.params.type);
+    res.json(results);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+router.get("/Sale/west-golf/:type", async (req, res) => {
+  try {
+    let results = await db.SalePropertyWestGolf(req.params.type);
+    res.json(results);
+  } catch (error) {
+    console.log(error);
+  }
+});
+router.get("/Sale/fifth-settle/:type", async (req, res) => {
+  try {
+    let results = await db.SalePropertyFifthSettle(req.params.type);
+    res.json(results);
+  } catch (error) {
+    console.log(error);
+  }
+});
+router.get("/Sale/mountain-view/:type", async (req, res) => {
+  try {
+    let results = await db.SalePropertyMountainView(req.params.type);
+    res.json(results);
+  } catch (error) {
+    console.log(error);
+  }
+});
+router.get("/Sale/lake-view/:type", async (req, res) => {
+  try {
+    let results = await db.SalePropertyLakeView(req.params.type);
+    res.json(results);
+  } catch (error) {
+    console.log(error);
+  }
+});
+router.get("/Sale/arabella/:type", async (req, res) => {
+  try {
+    let results = await db.SalePropertyArabella(req.params.type);
+    res.json(results);
+  } catch (error) {
+    console.log(error);
+  }
+});
+router.get("/Sale/first-settle/:type", async (req, res) => {
+  try {
+    let results = await db.SalePropertyFirstSettle(req.params.type);
+    res.json(results);
+  } catch (error) {
+    console.log(error);
+  }
+});
+router.get("/Sale/mirage/:type", async (req, res) => {
+  try {
+    let results = await db.SalePropertyMirageCity(req.params.type);
+    res.json(results);
+  } catch (error) {
+    console.log(error);
+  }
+});
+router.get("/Sale/mivida/:type", async (req, res) => {
+  try {
+    let results = await db.SalePropertyMivida(req.params.type);
+    res.json(results);
+  } catch (error) {
+    console.log(error);
+  }
+});
+router.get("/Sale/madinty/:type", async (req, res) => {
+  try {
+    let results = await db.SalePropertyMadinty(req.params.type);
+    res.json(results);
+  } catch (error) {
+    console.log(error);
+  }
+});
+router.get("/Sale/katamya-dunnes/:type", async (req, res) => {
+  try {
+    let results = await db.SalePropertyKatamyaDunnes(req.params.type);
+    res.json(results);
+  } catch (error) {
+    console.log(error);
+  }
+});
+router.get("/Sale/katamya-resd/:type", async (req, res) => {
+  try {
+    let results = await db.SalePropertyKatamyaResd(req.params.type);
+    res.json(results);
+  } catch (error) {
+    console.log(error);
+  }
+});
+router.get("/Sale/katamya-hills/:type", async (req, res) => {
+  try {
+    let results = await db.SalePropertyKatamyaHills(req.params.type);
+    res.json(results);
+  } catch (error) {
+    console.log(error);
+  }
+});
+router.get("/Sale/village-gate/:type", async (req, res) => {
+  try {
+    let results = await db.SalePropertyVillageGate(req.params.type);
+    res.json(results);
+  } catch (error) {
+    console.log(error);
+  }
+});
+router.get("/Sale/the-village/:type", async (req, res) => {
+  try {
+    let results = await db.SalePropertyTheVillage(req.params.type);
+    res.json(results);
+  } catch (error) {
+    console.log(error);
+  }
+});
+router.get("/Sale/katamya-plaza/:type", async (req, res) => {
+  try {
+    let results = await db.SalePropertyKatamyaPlaza(req.params.type);
+    res.json(results);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+router.get("/Sale/stone-park/:type", async (req, res) => {
+  try {
+    let results = await db.SalePropertyStonePark(req.params.type);
+    res.json(results);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
 
 module.exports = router;

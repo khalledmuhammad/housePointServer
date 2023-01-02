@@ -3,6 +3,17 @@ const typeSale = require("../controller/typeSale");
 
 const router = express.Router();
 
+router.get("/:type" ,async (req,res)=>{
+  try {
+      let results = await typeSale.selectForSaleProperty(req.params.type)
+      res.json(results)
+  } catch (error) {
+      console.log(error)
+  }
+
+})
+
+
 
 router.get("/Apartment", async (req, res) => {
   try {
