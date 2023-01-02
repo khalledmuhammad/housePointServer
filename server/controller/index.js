@@ -123,7 +123,7 @@ inner join property_type on property_type.type_id=property.Property_type
 inner join furniture on furniture.ffid=property.Furniture_status 
  where property.Property_for='Rent'  
  group by image.cat
- order by inhome desc, xdat desc
+ order by inhome desc, xdat desc limit 2500
  `,
       (err, results) => {
         if (err) {
