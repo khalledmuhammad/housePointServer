@@ -227,6 +227,15 @@ router.get("/rent/Maadi/:type", async (req, res) => {
     }
   });
 
+  router.get("/rent/katamya-heights-sub/:type", async (req, res) => {
+    try {
+      let results = await db.rentPropertyKatmyaheigtsSub(req.params.type);
+      res.json(results);
+    } catch (error) {
+      console.log(error);
+    }
+  });
+
   /* for sale properties Areas */
   router.get("/Sale/Maadi/:type", async (req, res) => {
     try {
@@ -249,7 +258,7 @@ router.get("/rent/Maadi/:type", async (req, res) => {
 
   router.get("/Sale/katamya/:type", async (req, res) => {
     try {
-      let results = await db.salePropertyMaadi(req.params.type);
+      let results = await db.salePropertyKatamya(req.params.type);
       res.json(results);
     } catch (error) {
       console.log(error);
@@ -450,5 +459,13 @@ router.get("/Sale/stone-park/:type", async (req, res) => {
   }
 });
 
+router.get("/Sale/katamya-heights-sub/:type", async (req, res) => {
+  try {
+    let results = await db.salePropertyKatmyaheigtsSub(req.params.type);
+    res.json(results);
+  } catch (error) {
+    console.log(error);
+  }
+});
 
 module.exports = router;

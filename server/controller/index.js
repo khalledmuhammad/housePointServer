@@ -52,12 +52,13 @@ housePoint.allHome = () => {
 housePoint.singleProperty = (slug) => {
   return new Promise((resolve, reject) => {
     pool.query(
-        `   select * from property 
+      `   select * from property 
             inner join maincat on maincat.mid=property.Area
             inner join subcat on subcat.sid=property.Subarea  
             inner join property_type on property_type.type_id=property.Property_type  
             inner join furniture on furniture.ffid=property.Furniture_status 
-           where ? IN(slug_ar , slug_en) `,[slug],
+           where ? IN(slug_ar , slug_en) `,
+      [slug],
       (err, results) => {
         if (err) {
           return reject(err);
