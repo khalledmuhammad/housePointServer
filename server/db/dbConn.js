@@ -9,14 +9,23 @@ const mysql = require("mysql");
   charset : 'utf8'
 }); */
 
- const pool = mysql.createPool({
+/*  const pool = mysql.createPool({
   host: "mysql-101810-0.cloudclusters.net",
   database: "techlife",
   port: 18063,
   user: "admin",
   password : "egFTmzTF",
   charset : 'utf8'
-});
+}); */
 
+
+const pool = mysql.createPool({
+  host: "mysql-103207-0.cloudclusters.net",
+  database: "techlife",
+  port: 10174,
+  user: "admin",
+  password : "UiIuSa9a",
+  charset : 'utf8'
+});
 
 module.exports= pool;
