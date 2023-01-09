@@ -3,6 +3,8 @@ const apiRoutes = require("./routes");
 const typeRentApi = require("./routes/typeRent");
 const typeSaleApi = require("./routes/typeSale");
 const apartmentPlacesApi = require("./routes/apartmentPlaces");
+require("dotenv").config();
+
 
 
 

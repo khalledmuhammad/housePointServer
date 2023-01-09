@@ -1,4 +1,6 @@
 const mysql = require("mysql");
+require("dotenv").config();
+
 
 /* const pool = mysql.createPool({
   host: "mysql-100424-0.cloudclusters.net",
@@ -20,12 +22,12 @@ const mysql = require("mysql");
 
 
 const pool = mysql.createPool({
-  host: "mysql-103207-0.cloudclusters.net",
-  database: "techlife",
-  port: 10174,
-  user: "admin",
-  password : "UiIuSa9a",
-  charset : 'utf8'
+  host:process.env.HOST ,
+  database: process.env.DATABASE,
+  port: process.env.DBPORT ,
+  user: process.env.DPUSER,
+  password :process.env.DBPASS,
+  charset : process.env.CHARST
 });
 
 module.exports= pool;
