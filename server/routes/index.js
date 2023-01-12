@@ -24,6 +24,17 @@ router.get("/home", async (req, res) => {
     console.log(error);
   }
 });
+
+router.get("/get-country", async (req, res) => {
+  try {
+    let results = await db.getCountry();
+    res.json(results);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+
 router.get("/image/:id", async (req, res) => {
   try {
     let results = await db.image(req.params.id);

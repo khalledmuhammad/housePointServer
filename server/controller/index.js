@@ -71,16 +71,12 @@ housePoint.singleProperty = (slug) => {
 
 housePoint.image = (id) => {
   return new Promise((resolve, reject) => {
-    pool.query(
-      ` select * from image where cat=?`,
-      [id],
-      (err, results) => {
-        if (err) {
-          return reject(err);
-        }
-        return resolve(results);
+    pool.query(` select * from image where cat=?`, [id], (err, results) => {
+      if (err) {
+        return reject(err);
       }
-    );
+      return resolve(results);
+    });
   });
 };
 
@@ -355,6 +351,20 @@ housePoint.singleBlog = (slug) => {
           return reject(err);
         }
         return resolve(results[0]);
+      }
+    );
+  });
+};
+
+housePoint.getCountry = () => {
+  return new Promise((resolve, reject) => {
+    pool.query(
+      ` select * from country  `,
+      (err, results) => {
+        if (err) {
+          return reject(err);
+        }
+        return resolve(results);
       }
     );
   });
