@@ -72,7 +72,7 @@ housePoint.singleProperty = (slug) => {
 housePoint.image = (id) => {
   return new Promise((resolve, reject) => {
     pool.query(
-      ` select * from image where cat=? and main=1 `,
+      ` select * from image where cat=?`,
       [id],
       (err, results) => {
         if (err) {
