@@ -91,6 +91,23 @@ housePoint.singleProperty = (slug) => {
   });
 };
 
+housePoint.singlePropertybyId = (id) => {
+  return new Promise((resolve, reject) => {
+    pool.query(
+      `   select * from property 
+            inner join maincat on maincat.mid=property.Area
+            inner join subcat on subcat.sid=property.Subarea  
+            inner join property_type on property_type.type_id=property.Property_type  
+            inner join furniture on furniture.ffid=property.Furniture_status 
+           where Id_property=? `,[id],(err, results) => {
+        if (err) {
+          return reject(err);
+        }
+        return resolve(results[0]);
+      }
+    );
+  });
+};
 housePoint.image = (id) => {
   return new Promise((resolve, reject) => {
     pool.query(` select * from image where cat=?`, [id], (err, results) => {
@@ -380,15 +397,12 @@ housePoint.singleBlog = (slug) => {
 
 housePoint.getCountry = () => {
   return new Promise((resolve, reject) => {
-    pool.query(
-      ` select * from country  `,
-      (err, results) => {
-        if (err) {
-          return reject(err);
-        }
-        return resolve(results);
+    pool.query(` select * from country  `, (err, results) => {
+      if (err) {
+        return reject(err);
       }
-    );
+      return resolve(results);
+    });
   });
 };
 

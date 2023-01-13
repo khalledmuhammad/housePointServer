@@ -62,6 +62,15 @@ router.get("/prop/:slug", async (req, res) => {
   }
 });
 
+router.get("/getProp/:id", async (req, res) => {
+  try {
+    let results = await db.singlePropertybyId(req.params.id);
+    res.json(results);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
 /*  all for sale in main places and subplaces */
 router.get("/for-sale", async (req, res) => {
   try {
@@ -261,23 +270,23 @@ router.post("/add-Property", (req, res) => {
   });
 });
 
-router.put("/update-property/:id", (req, res) => {
-  const query = `UPDATE property SET Title = '${req.body.title}', Title_ar = '${req.body.titlear}', 
-  Price = ${req.body.price}, Price_ex = ${req.body.price_ex}, 
-  Area = '${req.body.area}', Subarea = '${req.body.subarea}', Property_type = '${req.body.property_type}',
-   Property_for = '${req.body.property_for}', Surface_area = ${req.body.surface_area},
-    Property_status = '${req.body.property_status}', Floor_no = ${req.body.floor_no}, 
-    No_of_bedrooms = ${req.body.no_of_bedrooms}, No_of_bathrooms = ${req.body.no_of_bathrooms}, 
-    Furniture_status = '${req.body.furniture_status}', owner_name = '${req.body.owner_name}',
-     owner_phone = '${req.body.owner_phone}', owner_address = '${req.body.owner_address}'
-      WHERE Id_property = ${req.params.id}`;
-  // Execute the query to insert the data
-  pool.query(query, (error, results) => {
+router.put("/edit-property/:id", (req, res) => {
+  // Get the property data from the request body
+  const { Title, titlear, Price, Price_ex, Area, Subarea, Property_type, Property_for, Surface_area, Property_status, No_of_bedrooms, No_of_bathrooms, Furniture_status, owner_name, owner_phone, owner_address } = req.body;
+
+  // The query to update the property in the table
+  const query = `UPDATE property 
+  SET Title=?, titlear=?, Price=?, Price_ex=?, Area=?, Subarea=?, Property_type=?, Property_for=?, Surface_area=?, Property_status=?, No_of_bedrooms=?, No_of_bathrooms=?, Furniture_status=?, owner_name=?, owner_phone=?, owner_address=?
+  WHERE id_property = ?`;
+
+  // Execute the query to update the property
+  pool.query(query, [Title, titlear, Price, Price_ex, Area, Subarea, Property_type, Property_for, Surface_area, Property_status, No_of_bedrooms, No_of_bathrooms, Furniture_status, owner_name, owner_phone, owner_address, req.params.id], (error, results) => {
     if (error) {
       console.log(error);
+      res.status(500).send({ error });
     } else {
-      console.log(`Successfully Updaye `);
-      res.send({ message: `Successfully Updated` });
+      console.log(`Successfully edited property with id_property: ${req.params.id}`);
+      res.send({ message: `Successfully edited property with id_property: ${req.params.id}` });
     }
   });
 });
