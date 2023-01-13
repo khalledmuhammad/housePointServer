@@ -15,6 +15,15 @@ router.get("/", async (req, res) => {
     console.log(error);
   }
 });
+router.get("/AllProp", async (req, res) => {
+  try {
+    let results = await db.allProp();
+    res.json(results);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
 
 router.get("/home", async (req, res) => {
   try {
@@ -232,11 +241,14 @@ router.post("/add-Property", (req, res) => {
   const owner_phone = req.body.owner_phone;
   const owner_address = req.body.owner_address;
 
+  const slug_ar = titlear.replace(/ /g, "-");
+  const slug_en = title.replace(/ /g, "-");
+
   // The query to insert data into the table
-  const query = `INSERT INTO property (Title,titlear , Price, Price_ex ,
-     Area, Subarea, Property_type, Property_for, Surface_area, Property_status, No_of_bedrooms, No_of_bathrooms, Furniture_status, owner_name, owner_phone, owner_address)
-   VALUES (  '${title}', '${titlear}', ${price}, ${price_ex}, '${area}', '${subarea}', '${property_type}',
-    '${property_for}', ${surface_area}, '${property_status}', ${no_of_bedrooms}, ${no_of_bathrooms}, '${furniture_status}', '${owner_name}', '${owner_phone}', '${owner_address}')`;
+  const query = `INSERT INTO property (Title,titlear, Price, Price_ex, Area, Subarea, Property_type, Property_for, Surface_area, Property_status, No_of_bedrooms, No_of_bathrooms, Furniture_status, owner_name, owner_phone, owner_address, slug_ar, slug_en)
+  VALUES (  '${title}', '${titlear}', ${price}, ${price_ex}, '${area}', '${subarea}', '${property_type}', '${property_for}', ${surface_area}, '${property_status}', ${no_of_bedrooms}, ${no_of_bathrooms}, '${furniture_status}', '${owner_name}', '${owner_phone}', '${owner_address}', '${slug_ar}', '${slug_en}')`;
+
+
 
   // Execute the query to insert the data
   pool.query(query, (error, results) => {
@@ -270,4 +282,22 @@ router.put("/update-property/:id", (req, res) => {
   });
 });
 
+router.delete("/delete-property/:id", (req, res) => {
+  // Get the id_property from the request parameters
+  const id_property = req.params.id;
+
+  // The query to delete the property
+  const query = `DELETE FROM property WHERE id_property = ${id_property}`;
+
+  // Execute the query to delete the property
+  pool.query(query, (error, results) => {
+    if (error) {
+      console.log(error);
+      res.status(500).send({ error });
+    } else {
+      console.log(`Successfully deleted property with id_property: ${id_property}`);
+      res.send({ message: `Successfully deleted property with id_property: ${id_property}` });
+    }
+  });
+});
 module.exports = router;
