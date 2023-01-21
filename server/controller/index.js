@@ -27,6 +27,8 @@ housePoint.all = () => {
   });
 };
 
+
+
 housePoint.allProp = () => {
   return new Promise((resolve, reject) => {
     pool.query(

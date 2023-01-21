@@ -8,7 +8,7 @@ const router = express.Router();
 /* all properties and single properties */
 
 router.get("/", async (req, res) => {
-  
+
   try {
     let results = await db.all();
     res.json(results);
@@ -310,4 +310,51 @@ router.delete("/delete-property/:id", (req, res) => {
     }
   });
 });
+
+router.get("/properties", (req, res) => {
+  let query = `   select * from property
+  inner join maincat on maincat.mid=property.Area
+   inner join subcat on subcat.sid=property.Subarea  
+   inner join property_type on property_type.type_id=property.Property_type  
+   inner join furniture on furniture.ffid=property.Furniture_status 
+   inner join image on image.cat = property.Id_property `;
+
+  // Add filtering based on query parameters
+  let where = []
+  if (req.query.name || req.query.namear) {
+    where.push(`(name LIKE '%${req.query.name}%' or namear LIKE '%${req.query.namear}%'  )  `)
+  }
+  if (req.query.type_en_slug || req.query.type_ar_slug ) {
+    where.push(`(type_en_slug LIKE '%${req.query.type_en_slug}%'  or type_ar_slug LIKE '%${req.query.type_ar_slug}%' ) `)
+  }
+
+  if (req.query.property_for) {
+    where.push(`(Property_for = '${req.query.property_for}')`)
+  }
+
+  if (req.query.property_for && req.query.name || req.query.namear ) {
+    where.push(`(Property_for = '${req.query.property_for}'  and name LIKE '%${req.query.name}%' or namear LIKE '%${req.query.namear}%') `)
+  }
+
+  if (req.query.property_for && req.query.type_en_slug || req.query.type_ar_slug  ) {
+    where.push(`(Property_for = '${req.query.property_for}'  and type_en_slug LIKE '%${req.query.type_en_slug}%'  or type_ar_slug LIKE '%${req.query.type_ar_slug}%')  `)
+  }
+
+  if(where.length > 0){
+    query += ` WHERE ${where.join(' AND ')}`;
+  }
+  query += " GROUP BY image.cat ORDER BY inhome DESC, xdat DESC LIMIT 2500";
+
+  // Execute the query and return the result
+  pool.query(query, (error, results) => {
+    if (error) {
+      console.log(query)
+      res.status(500).send({ error });
+    } else {
+      res.send(results);
+    }
+  });
+});
+
+
 module.exports = router;
