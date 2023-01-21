@@ -8,6 +8,7 @@ const router = express.Router();
 /* all properties and single properties */
 
 router.get("/", async (req, res) => {
+  
   try {
     let results = await db.all();
     res.json(results);
