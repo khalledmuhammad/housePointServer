@@ -14,8 +14,8 @@ const app = express();
 const transport = nodemailer.createTransport({
   service: "gmail", // your email service provider
   auth: {
-    user: "khaledluda25@gmail.com",
-    pass: "ouqtnqratztnhlvt",
+    user: "khaledluda25@gmail.com", /* info@housepointegypt.com    */
+    pass: "ouqtnqratztnhlvt", /* generated password */
   },
 });
 
@@ -38,7 +38,7 @@ app.post("/api/send-email", (req, res) => {
   console.log(req.body);
   const mailOptions = {
     from: email,
-    to: "info@housepointegypt.com" /* info@housepointegypt.com    */,
+    to: "khaledluda25@gmail.com" /* info@housepointegypt.com    */,
     subject: message,
     html: `
     <!DOCTYPE html>
@@ -112,7 +112,7 @@ app.post("/api/contactUs", (req, res) => {
   console.log(req.body);
   const mailOptions = {
     from: email,
-    to: "info@housepointegypt.com" /* info@housepointegypt.com    */,
+    to: "khaledluda25@gmail.com" /* info@housepointegypt.com    */,
     subject: message,
     html: `
     <!DOCTYPE html>
